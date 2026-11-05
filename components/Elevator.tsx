@@ -31,7 +31,7 @@ export function Langs({ lang, path }: { lang: Lang; path: string }) {
         l === lang ? (
           <span key={l} className="on" aria-current="true">{l.toUpperCase()}</span>
         ) : (
-          <a key={l} href={L(l, path)} hrefLang={l}>{l.toUpperCase()}</a>
+          <a key={l} href={(process.env.NEXT_PUBLIC_BASE_PATH || '') + L(l, path)} hrefLang={l}>{l.toUpperCase()}</a>
         ),
       )}
     </div>

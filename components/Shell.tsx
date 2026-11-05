@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { htmlLang, type Lang } from '@/lib/i18n';
 
-export const SITE = 'https://alangustavoportfolio.al-gustavo-br.workers.dev';
+/** Endereço público do site. O build do GitHub Pages troca por https://alsedan-coder.github.io/portfolio */
+export const SITE = process.env.NEXT_PUBLIC_SITE || 'https://alangustavoportfolio.al-gustavo-br.workers.dev';
 
 const meta: Record<Lang, { title: string; description: string; locale: string }> = {
   pt: {
@@ -27,8 +28,8 @@ export function siteMetadata(lang: Lang): Metadata {
     metadataBase: new URL(SITE),
     title: m.title,
     description: m.description,
-    openGraph: { title: m.title, description: m.description, type: 'website', locale: m.locale, url: lang === 'pt' ? '/' : `/${lang}`, images: [{ url: '/og.png', width: 1200, height: 630 }] },
-    twitter: { card: 'summary_large_image', title: m.title, description: m.description, images: ['/og.png'] },
+    openGraph: { title: m.title, description: m.description, type: 'website', locale: m.locale, url: lang === 'pt' ? `${SITE}/` : `${SITE}/${lang}`, images: [{ url: `${SITE}/og.png`, width: 1200, height: 630 }] },
+    twitter: { card: 'summary_large_image', title: m.title, description: m.description, images: [`${SITE}/og.png`] },
   };
 }
 
