@@ -1,0 +1,61 @@
+/* ==========================================================================
+   TEMA DO SITE · o painel de ajustes rápidos
+   --------------------------------------------------------------------------
+   Tudo o que você quiser experimentar fica aqui: cores, fontes, tamanhos de
+   texto, espaçamentos e cantos. Troque um valor, salve o arquivo e o site
+   atualiza sozinho no `npm run dev`.
+
+   Dica: clamp(MÍNIMO, IDEAL, MÁXIMO) faz o tamanho crescer com a tela.
+   Ex.: clamp(28px, 4.4vw, 54px) = 28px no celular, até 54px em telas grandes.
+   ========================================================================== */
+
+:root {
+  /* ---------- CORES ---------- */
+  --fundo: #f5f0e8;           /* fundo creme das páginas */
+  --superficie: #ffffff;      /* cards e zona da reforma */
+  --tinta: #17191b;           /* texto principal, botões escuros, painel do elevador */
+  --texto: #3f3b35;           /* texto corrido */
+  --texto-2: #6b655c;         /* rótulos e textos de apoio */
+  --linha: #e2dacd;           /* bordas finas */
+  --laranja: #e0520f;         /* destaque: andar atual, faixa "O cômodo reformado" */
+  --laranja-texto: #b4410b;   /* textos em laranja (mais escuro, para ler melhor) */
+  --laranja-luz: #ff6a2b;     /* laranja sobre fundo escuro (visor do elevador) */
+  --creme-claro: #d9d3c9;     /* texto claro sobre fundo escuro */
+  --cinza-claro: #b7b1a8;     /* rótulos sobre fundo escuro */
+  --grafite: #3a3d40;         /* linhas sobre fundo escuro */
+  --papel: #fffdf7;           /* "papel" das seções do problema */
+  --papel-amarelo: #fff6d6;   /* bilhete amarelo */
+  --mesa: #ede4d6;            /* fundo do card "Antes" */
+
+  /* Elevador da tela inicial (fundo escuro) */
+  --elevador-parede: #2f3134;
+  --elevador-parede-escura: #1f2022;
+  --elevador-lateral: #17181a;
+  --elevador-teto: #1c1d1f;
+  --elevador-luz: #fff6e4;
+
+  /* ---------- FONTES ---------- */
+  /* Para trocar uma fonte: mude o nome aqui e também no link do Google Fonts em app/layout.tsx */
+  --titulo: 'Poppins', system-ui, sans-serif;   /* títulos */
+  --corpo: 'Nunito', system-ui, sans-serif;     /* textos e rótulos */
+  --mao: 'Caveat', cursive;                     /* bilhetes escritos à mão no "Antes" */
+
+  /* ---------- TAMANHOS DE TEXTO ---------- */
+  --t-corpo: 17px;                               /* texto corrido */
+  --t-rotulo: 13px;                              /* rótulos em maiúsculas (ex.: "03 · AS DECISÕES") */
+  --t-andar: clamp(40px, 5.6vw, 64px);           /* título do andar (ex.: "Cobertura") */
+  --t-comodo: clamp(28px, 4.4vw, 54px);          /* título do cômodo, no topo */
+  --t-secao: clamp(23px, 2.8vw, 34px);           /* título de cada seção */
+  --t-destaque: clamp(24px, 3vw, 40px);          /* títulos das decisões com celular grande */
+  --t-reforma: clamp(34px, 5.2vw, 72px);         /* "O cômodo reformado" */
+  --t-faixa: clamp(28px, 4.2vw, 52px);           /* título da faixa preta */
+  --t-card: clamp(22px, 2.4vw, 30px);            /* título dos cards de cômodo nos andares */
+  --t-janela: 22px;                              /* título das janelas */
+
+  /* ---------- ESPAÇOS ---------- */
+  --largura: 1120px;           /* largura máxima do conteúdo */
+  --gutter: max(20px, 5vw);    /* margem lateral */
+  --espaco-secoes: 120px;      /* distância entre seções dentro de um cômodo */
+  --pad-card: 32px;            /* espaço interno dos cards */
+  --raio: 16px;                /* arredondamento dos cantos */
+}

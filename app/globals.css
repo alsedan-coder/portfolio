@@ -1,27 +1,5 @@
 /* Portfólio Alan Gustavo · estilos globais (tokens, painel do elevador, andares, cômodos). */
-:root {
-  --fundo: #f5f0e8;
-  --superficie: #ffffff;
-  --tinta: #17191b;
-  --texto: #3f3b35;
-  --texto-2: #6b655c;
-  --linha: #e2dacd;
-  --laranja: #e0520f;
-  --laranja-texto: #b4410b;
-  --laranja-luz: #ff6a2b;
-  --creme-claro: #d9d3c9;
-  --cinza-claro: #b7b1a8;
-  --grafite: #3a3d40;
-  --papel: #fffdf7;
-  --papel-amarelo: #fff6d6;
-  --mesa: #ede4d6;
-  --raio: 16px;
-  --titulo: "Poppins", system-ui, sans-serif;
-  --corpo: "Nunito", system-ui, sans-serif;
-  --mao: "Caveat", cursive;
-  --largura: 1120px;
-  --gutter: max(20px, 5vw);
-}
+
 *,
 :after,
 :before {
@@ -35,7 +13,7 @@ body {
   background: var(--fundo);
   color: var(--tinta);
   font-family: var(--corpo);
-  font-size: 17px;
+  font-size: var(--t-corpo);
   line-height: 1.6;
 }
 img {
@@ -70,7 +48,7 @@ p {
   max-width: 1280px;
 }
 .kicker {
-  font-size: 13px;
+  font-size: var(--t-rotulo);
   color: var(--laranja-texto);
 }
 .kicker,
@@ -265,294 +243,99 @@ p {
     height: 44px;
   }
 }
+/* ============ Térreo: dentro do elevador ============ */
+/* O tamanho dos cards acompanha a ALTURA da tela (vh), para tudo caber sem rolar. */
 .lobby {
   position: relative;
   overflow: hidden;
   min-height: 100vh;
   min-height: 100svh;
-  background: #2a2c2f;
+  background: var(--elevador-parede);
   display: flex;
   flex-direction: column;
+  --teto: clamp(48px, 10vh, 88px);
 }
-.lobby .scene {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
+.lobby .scene { position: absolute; inset: 0; pointer-events: none; }
 .lobby .ceil {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 88px;
-  background: linear-gradient(180deg, #1c1d1f, #26282b);
-  -webkit-clip-path: polygon(0 0, 100% 0, calc(100% - 9.7%) 100%, 9.7% 100%);
-  clip-path: polygon(0 0, 100% 0, calc(100% - 9.7%) 100%, 9.7% 100%);
+  position: absolute; left: 0; right: 0; top: 0; height: var(--teto);
+  background: linear-gradient(180deg, var(--elevador-teto), #26282b);
+  clip-path: polygon(0 0, 100% 0, 90.3% 100%, 9.7% 100%);
 }
 .lobby .light {
-  position: absolute;
-  left: 50%;
-  top: 30px;
-  width: min(640px, 60vw);
-  height: 12px;
-  transform: translateX(-50%);
-  border-radius: 6px;
-  background: #fff6e4;
-  box-shadow:
-    0 0 24px 8px rgba(255, 236, 200, 0.55),
-    0 0 90px 34px rgba(255, 226, 180, 0.18);
+  position: absolute; left: 50%; top: calc(var(--teto) * 0.34); transform: translateX(-50%);
+  width: min(640px, 60vw); height: 12px; border-radius: 6px; background: var(--elevador-luz);
+  box-shadow: 0 0 24px 8px rgba(255, 236, 200, 0.55), 0 0 90px 34px rgba(255, 226, 180, 0.18);
 }
 .lobby .back {
-  left: 9.7%;
-  right: 9.7%;
-  top: 88px;
-  background: repeating-linear-gradient(
-    90deg,
-    #2f3134 0 290px,
-    #1f2022 290px 292px,
-    #3a3c40 292px 294px
-  );
+  position: absolute; left: 9.7%; right: 9.7%; top: var(--teto); bottom: 0;
+  background: repeating-linear-gradient(90deg, var(--elevador-parede) 0 290px, var(--elevador-parede-escura) 290px 292px, #3a3c40 292px 294px);
   box-shadow: inset 0 24px 40px -18px rgba(0, 0, 0, 0.45);
 }
-.lobby .back,
-.lobby .wall {
-  position: absolute;
-  bottom: 0;
-}
-.lobby .wall {
-  top: 0;
-  width: 9.7%;
-}
-.lobby .wall.l {
-  left: 0;
-  background: linear-gradient(90deg, #17181a, #242629);
-  -webkit-clip-path: polygon(0 0, 100% 88px, 100% 100%, 0 100%);
-  clip-path: polygon(0 0, 100% 88px, 100% 100%, 0 100%);
-}
-.lobby .wall.r {
-  right: 0;
-  background: linear-gradient(270deg, #17181a, #242629);
-  -webkit-clip-path: polygon(0 88px, 100% 0, 100% 100%, 0 100%);
-  clip-path: polygon(0 88px, 100% 0, 100% 100%, 0 100%);
-}
+.lobby .wall { position: absolute; top: 0; bottom: 0; width: 9.7%; }
+.lobby .wall.l { left: 0; background: linear-gradient(90deg, var(--elevador-lateral), #242629); clip-path: polygon(0 0, 100% var(--teto), 100% 100%, 0 100%); }
+.lobby .wall.r { right: 0; background: linear-gradient(270deg, var(--elevador-lateral), #242629); clip-path: polygon(0 var(--teto), 100% 0, 100% 100%, 0 100%); }
+
 .lobby main {
-  position: relative;
-  z-index: 1;
-  flex: 1 1 auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 104px 5vw 32px;
+  position: relative; z-index: 1; flex: 1 1 auto;
+  display: flex; flex-wrap: wrap; gap: clamp(20px, 3vw, 40px);
+  align-items: flex-start; align-content: center; justify-content: center;
+  width: 100%; max-width: 1320px; margin: 0 auto;
+  padding: calc(var(--teto) + 2vh) 5vw 3vh;
 }
 .placa {
-  flex: 999 1 560px;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background: var(--superficie);
-  border-radius: var(--raio);
-  padding: 32px 36px;
+  flex: 999 1 480px; min-width: 0;
+  display: flex; flex-direction: column; gap: clamp(10px, 2.2vh, 20px);
+  background: var(--superficie); border-radius: var(--raio);
+  padding: clamp(20px, 3.6vh, 32px) clamp(24px, 3vw, 36px);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
-.placa .who {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 22px;
-}
-.placa .who img {
-  width: 104px;
-  height: 104px;
-  border-radius: 52px;
-  object-fit: cover;
-  background: var(--linha);
-}
-.placa h1 {
-  font-weight: 700;
-  font-size: clamp(32px, 3.6vw, 46px);
-  line-height: 1.02;
-  letter-spacing: -0.01em;
-}
-.placa .role {
-  font-family: var(--titulo);
-  font-weight: 500;
-  font-size: 19px;
-}
-.placa .intro {
-  font-family: var(--titulo);
-  font-size: 17px;
-  line-height: 1.6;
-  color: var(--texto);
-  max-width: 640px;
-}
-.placa .facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  padding-top: 16px;
-  border-top: 1px solid var(--linha);
-}
-.placa .facts div {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.placa .facts span:first-child {
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--texto-2);
-}
-.placa .facts span:last-child {
-  font-size: 15px;
-  font-weight: 600;
-}
-.cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
+.placa .who { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(14px, 2vw, 22px); }
+.placa .who img { width: clamp(72px, 12vh, 104px); height: clamp(72px, 12vh, 104px); border-radius: 50%; object-fit: cover; background: var(--linha); }
+.placa h1 { font-weight: 700; font-size: clamp(28px, min(3.6vw, 5.4vh), 46px); line-height: 1.02; letter-spacing: -0.01em; }
+.placa .role { font-family: var(--titulo); font-weight: 500; font-size: clamp(16px, 2.2vh, 19px); }
+.placa .intro { font-family: var(--titulo); font-size: clamp(15px, 2vh, 17px); line-height: 1.55; color: var(--texto); max-width: 640px; }
+.placa .facts { display: flex; flex-wrap: wrap; gap: 24px; padding-top: clamp(10px, 1.8vh, 16px); border-top: 1px solid var(--linha); }
+.placa .facts div { display: flex; flex-direction: column; gap: 4px; }
+.placa .facts span:first-child { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--texto-2); }
+.placa .facts span:last-child { font-size: 15px; font-weight: 600; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; }
 .cta a {
-  min-height: 46px;
-  display: inline-flex;
-  align-items: center;
-  padding: 0 18px;
-  border-radius: 23px;
-  border: 1.5px solid var(--tinta);
-  font-weight: 700;
-  font-size: 15px;
-  text-decoration: none;
+  min-height: clamp(40px, 5.4vh, 46px); display: inline-flex; align-items: center; padding: 0 18px; border-radius: 23px;
+  border: 1.5px solid var(--tinta); font-weight: 700; font-size: 15px; text-decoration: none;
 }
-.cta a:hover {
-  background: var(--fundo);
-}
-.cta a.primary {
-  background: var(--tinta);
-  color: #fff;
-}
-.cta a.primary:hover {
-  background: var(--laranja-texto);
-  border-color: var(--laranja-texto);
-}
+.cta a:hover { background: var(--fundo); }
+.cta a.primary { background: var(--tinta); color: #fff; }
+.cta a.primary:hover { background: var(--laranja-texto); border-color: var(--laranja-texto); }
+
 .painel {
-  flex: 1 1 340px;
-  max-width: 400px;
-  flex-direction: column;
-  gap: 16px;
-  background: var(--superficie);
-  padding: 24px;
+  flex: 1 1 340px; max-width: 400px;
+  display: flex; flex-direction: column; gap: clamp(8px, 1.8vh, 16px);
+  background: var(--superficie); border-radius: var(--raio); padding: clamp(16px, 3vh, 24px);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
-.painel,
-.painel .mostrador {
-  display: flex;
-  border-radius: var(--raio);
+.painel .mostrador { display: flex; align-items: center; gap: 18px; background: var(--tinta); border-radius: var(--raio); padding: clamp(6px, 1.4vh, 12px) 20px; }
+.painel .mostrador span:first-child { font-size: clamp(28px, 4.4vh, 38px); line-height: 1; color: var(--laranja-luz); }
+.painel .mostrador span:last-child { font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cinza-claro); }
+.langs { display: flex; gap: 8px; }
+.langs a, .langs span {
+  min-height: clamp(34px, 4.6vh, 40px); min-width: 52px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--tinta); border-radius: 20px; font-size: 13px; letter-spacing: 0.08em; text-decoration: none;
 }
-.painel .mostrador {
-  align-items: center;
-  gap: 18px;
-  background: var(--tinta);
-  padding: 12px 20px;
-}
-.painel .mostrador span:first-child {
-  font-size: 38px;
-  line-height: 1;
-  color: var(--laranja-luz);
-}
-.painel .mostrador span:last-child {
-  font-size: 13px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--cinza-claro);
-}
-.langs {
-  display: flex;
-  gap: 8px;
-}
-.langs a,
-.langs span {
-  min-height: 40px;
-  min-width: 52px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1.5px solid var(--tinta);
-  border-radius: 20px;
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-}
-.langs .on {
-  background: var(--tinta);
-  color: #fff;
-}
-.langs .off {
-  opacity: 0.45;
-}
-.painel ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.painel li a {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  min-height: 56px;
-  padding: 4px;
-  border-radius: var(--raio);
-  text-decoration: none;
-}
-.painel li a:hover .nm {
-  color: var(--laranja-texto);
-}
+.langs .on { background: var(--tinta); color: #fff; }
+.langs .off { opacity: 0.45; }
+.painel ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.painel li a { display: flex; align-items: center; gap: 14px; min-height: clamp(46px, 6.6vh, 56px); padding: 3px 4px; border-radius: var(--raio); text-decoration: none; }
+.painel li a:hover .nm { color: var(--laranja-texto); }
 .painel .btn {
-  width: 46px;
-  height: 46px;
-  flex: none;
-  border-radius: 23px;
-  border: 1.5px solid var(--tinta);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 17px;
+  width: clamp(38px, 5.4vh, 46px); height: clamp(38px, 5.4vh, 46px); flex: none; border-radius: 50%; border: 1.5px solid var(--tinta);
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
 }
-.painel li a:hover .btn {
-  background: var(--tinta);
-  color: #fff;
-}
-.painel li.here .btn,
-.painel li.here a:hover .btn {
-  background: var(--laranja);
-  border-color: var(--laranja);
-  color: var(--tinta);
-}
-.painel .txt {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-.painel .nm {
-  font-family: var(--titulo);
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 1.25;
-}
-.painel .ds {
-  font-size: 13px;
-  color: var(--texto);
-  line-height: 1.35;
-}
+.painel li a:hover .btn { background: var(--tinta); color: #fff; }
+.painel li.here .btn, .painel li.here a:hover .btn { background: var(--laranja); border-color: var(--laranja); color: var(--tinta); }
+.painel .txt { display: flex; flex-direction: column; gap: 1px; }
+.painel .nm { font-family: var(--titulo); font-weight: 500; font-size: clamp(16px, 2.2vh, 18px); line-height: 1.25; }
+.painel .ds { font-size: 13px; color: var(--texto); line-height: 1.35; }
+
 @media (max-width: 760px) {
   .lobby .ceil,
   .lobby .wall {
@@ -615,7 +398,7 @@ p {
 }
 .floor h1 {
   font-weight: 700;
-  font-size: clamp(44px, 6vw, 64px);
+  font-size: var(--t-andar);
   line-height: 1.02;
   letter-spacing: -0.01em;
 }
@@ -641,7 +424,7 @@ p {
   background: var(--superficie);
   border: 1px solid var(--linha);
   border-radius: var(--raio);
-  padding: 36px;
+  padding: var(--pad-card);
   text-decoration: none;
   transition:
     border-color 0.2s,
@@ -655,7 +438,7 @@ p {
 }
 .room h2 {
   font-weight: 700;
-  font-size: clamp(24px, 2.6vw, 32px);
+  font-size: var(--t-card);
   line-height: 1.12;
 }
 .room p {
@@ -730,11 +513,11 @@ p {
   background: var(--superficie);
   border: 1.5px solid var(--tinta);
   border-radius: var(--raio);
-  padding: 32px;
+  padding: var(--pad-card);
 }
 .window h3 {
   font-weight: 600;
-  font-size: 24px;
+  font-size: var(--t-janela);
   line-height: 1.2;
 }
 .window .body {
@@ -795,7 +578,7 @@ p {
 }
 .hero h1 {
   font-weight: 700;
-  font-size: clamp(28px, 4.4vw, 54px);
+  font-size: var(--t-comodo);
   line-height: 1.04;
   letter-spacing: -0.01em;
   max-width: 960px;
@@ -976,7 +759,7 @@ p {
 }
 .shead h2 {
   font-weight: 700;
-  font-size: clamp(23px, 2.8vw, 34px);
+  font-size: var(--t-secao);
   line-height: 1.15;
 }
 .paper,
@@ -1036,7 +819,7 @@ p {
 }
 .reform h2 {
   font-weight: 700;
-  font-size: clamp(34px, 5.2vw, 72px);
+  font-size: var(--t-reforma);
   line-height: 1;
   letter-spacing: -0.015em;
 }
@@ -1052,7 +835,7 @@ p {
   padding: 104px 0 128px;
 }
 .zone-solution > .container {
-  gap: 128px;
+  gap: var(--espaco-secoes);
 }
 .ssec,
 .zone-solution > .container {
@@ -1282,7 +1065,7 @@ p {
 .feature figcaption strong {
   font-family: var(--titulo);
   font-weight: 700;
-  font-size: clamp(24px, 3vw, 40px);
+  font-size: var(--t-destaque);
   line-height: 1.1;
 }
 .feature figcaption span {
@@ -1469,7 +1252,7 @@ p {
 .band h2 {
   max-width: 900px;
   font-weight: 700;
-  font-size: clamp(28px, 4.2vw, 52px);
+  font-size: var(--t-faixa);
   line-height: 1.05;
   letter-spacing: -0.01em;
 }

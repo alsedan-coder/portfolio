@@ -24,8 +24,15 @@ npm run build    # gera o site estático em ./out
 - Build output directory: `out`
 - Node: 22 (arquivo `.node-version`)
 
+## Ajustes rápidos de visual
+
+Cores, fontes, tamanhos de texto, espaçamentos e cantos ficam todos em **`app/tema.css`**.
+Troque um valor, salve, e o site atualiza sozinho com `npm run dev` aberto.
+
 ## Estrutura
 
+- `app/tema.css` painel de ajustes rápidos (cores, fontes, tamanhos, espaços)
+- `app/globals.css` estilos completos
 - `app/` páginas (térreo, andares, cômodos, sobre mim)
 - `components/` painel do elevador, modelo de andar e blocos dos cômodos
 - `lib/` andares e contato
