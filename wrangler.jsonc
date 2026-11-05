@@ -1,0 +1,11 @@
+{
+  // Site estático: o Next.js exporta tudo para ./out e a Cloudflare só serve os arquivos.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "alangustavoportfolio",
+  "compatibility_date": "2026-11-03",
+  "assets": {
+    "directory": "./out",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
