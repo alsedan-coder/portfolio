@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { floors } from '@/lib/floors';
 import { contact } from '@/lib/contact';
+import { Langs } from '@/components/Elevator';
 
 export default function Terreo() {
   return (
@@ -37,11 +38,7 @@ export default function Terreo() {
 
         <nav className="painel" aria-label="Painel do elevador">
           <div className="mostrador"><span>T</span><span>Térreo</span></div>
-          <div className="langs" role="group" aria-label="Idioma">
-            <span className="on" aria-current="true">PT</span>
-            <span className="off" title="Em breve">EN</span>
-            <span className="off" title="Em breve">ES</span>
-          </div>
+          <Langs />
           <ul>
             {floors.map((f) => (
               <li key={f.id} className={f.id === 'terreo' ? 'here' : undefined}>

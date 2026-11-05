@@ -1682,3 +1682,7 @@ p {
     padding-right: max(var(--gutter), 124px);
   }
 }
+
+/* Idiomas no cabeçalho das páginas internas */
+.topbar { justify-content: space-between; }
+.topbar .langs span { min-height: 36px; min-width: 46px; font-size: 12px; }

@@ -21,10 +21,22 @@ export function ElevatorPanel({ current }: { current: FloorId }) {
   );
 }
 
+/** Botões de idioma. EN e ES ficam apagados até as traduções estarem prontas. */
+export function Langs() {
+  return (
+    <div className="langs" role="group" aria-label="Idioma">
+      <span className="on" aria-current="true">PT</span>
+      <span className="off" title="Em breve">EN</span>
+      <span className="off" title="Em breve">ES</span>
+    </div>
+  );
+}
+
 export function TopBar({ back }: { back: { href: string; label: string } }) {
   return (
     <header className="topbar">
       <Link href={back.href}>← {back.label}</Link>
+      <Langs />
     </header>
   );
 }
