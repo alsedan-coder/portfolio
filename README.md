@@ -33,7 +33,10 @@ Troque um valor, salve, e o site atualiza sozinho com `npm run dev` aberto.
 
 - `app/tema.css` painel de ajustes rápidos (cores, fontes, tamanhos, espaços)
 - `app/globals.css` estilos completos
-- `app/` páginas (térreo, andares, cômodos, sobre mim)
+- `app/(pt)`, `app/en`, `app/es` rotas de cada idioma (português na raiz, /en e /es)
+- `content/pt`, `content/en`, `content/es` textos de cada página, um arquivo por página e idioma
+- `lib/i18n.ts` textos fixos da interface (botões, rótulos) nos três idiomas
+- `lib/floors.ts` nomes e descrições dos andares nos três idiomas
 - `components/` painel do elevador, modelo de andar e blocos dos cômodos
 - `lib/` andares e contato
 - `public/img/` imagens dos casos
