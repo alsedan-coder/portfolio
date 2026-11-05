@@ -30,6 +30,7 @@ export default function Terreo() {
               <a className="primary" href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noopener">WhatsApp</a>
             )}
             <a className={contact.whatsapp ? '' : 'primary'} href={`mailto:${contact.email}`}>{contact.email}</a>
+            <a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
             <Link href="/sobre-mim">Sobre mim →</Link>
           </div>
         </section>
