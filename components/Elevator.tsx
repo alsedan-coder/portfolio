@@ -1,14 +1,16 @@
 import Link from 'next/link';
 import { floors, type FloorId } from '@/lib/floors';
+import { L, langs, ui, type Lang } from '@/lib/i18n';
 
 /** Painel fixo do elevador, presente em todas as páginas internas. */
-export function ElevatorPanel({ current }: { current: FloorId }) {
-  const here = floors.find((f) => f.id === current)!;
+export function ElevatorPanel({ lang, current }: { lang: Lang; current: FloorId }) {
+  const list = floors(lang);
+  const here = list.find((f) => f.id === current)!;
   return (
-    <nav className="elev" aria-label="Painel do elevador">
-      <span className="scr" aria-label={`Você está em: ${here.name}`}>{here.button}</span>
+    <nav className="elev" aria-label={ui[lang].panel}>
+      <span className="scr" aria-label={`${ui[lang].youAreOn}: ${here.name}`}>{here.button}</span>
       <span className="sep" aria-hidden="true" />
-      {floors.map((f) => (
+      {list.map((f) => (
         <Link key={f.id} href={f.href} aria-current={f.id === current ? 'page' : undefined}>
           <span className="lbl">
             {f.name}
@@ -21,54 +23,63 @@ export function ElevatorPanel({ current }: { current: FloorId }) {
   );
 }
 
-/** Botões de idioma. EN e ES ficam apagados até as traduções estarem prontas. */
-export function Langs() {
+/** Botões de idioma: levam para a mesma página nos outros idiomas. */
+export function Langs({ lang, path }: { lang: Lang; path: string }) {
   return (
-    <div className="langs" role="group" aria-label="Idioma">
-      <span className="on" aria-current="true">PT</span>
-      <span className="off" title="Em breve">EN</span>
-      <span className="off" title="Em breve">ES</span>
+    <div className="langs" role="group" aria-label={ui[lang].language}>
+      {langs.map((l) =>
+        l === lang ? (
+          <span key={l} className="on" aria-current="true">{l.toUpperCase()}</span>
+        ) : (
+          <a key={l} href={L(l, path)} hrefLang={l}>{l.toUpperCase()}</a>
+        ),
+      )}
     </div>
   );
 }
 
-export function TopBar({ back }: { back: { href: string; label: string } }) {
+export type Back = { href: string; label: string };
+
+export function TopBar({ lang, path, back }: { lang: Lang; path: string; back: Back }) {
   return (
     <header className="topbar">
       <Link href={back.href}>← {back.label}</Link>
-      <Langs />
+      <Langs lang={lang} path={path} />
     </header>
   );
 }
 
 /** Fim da página: um botão grande para voltar de onde a pessoa veio. */
-export function EndBack({ back }: { back: { href: string; label: string } }) {
+export function EndBack({ lang, back }: { lang: Lang; back: Back }) {
   return (
     <footer className="site-foot">
-      <Link href={back.href} className="end-back">← Voltar ao {back.label}</Link>
+      <Link href={back.href} className="end-back">← {ui[lang].backTo} {back.label}</Link>
     </footer>
   );
 }
 
-/** Esqueleto de uma página interna: link de pular, cabeçalho, painel, conteúdo e rodapé. */
+/** Esqueleto de uma página interna: cabeçalho com idiomas, painel do elevador, conteúdo e botão de voltar. */
 export function InnerPage({
+  lang,
+  path,
   current,
   back,
   endBack = true,
   children,
 }: {
+  lang: Lang;
+  path: string;
   current: FloorId;
-  back: { href: string; label: string };
+  back: Back;
   endBack?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <>
-      <a className="skip" href="#conteudo">Pular para o conteúdo</a>
-      <TopBar back={back} />
-      <ElevatorPanel current={current} />
+      <TopBar lang={lang} path={path} back={back} />
+      <ElevatorPanel lang={lang} current={current} />
       <div id="conteudo">{children}</div>
-      {endBack ? <EndBack back={back} /> : <footer className="site-foot" />}
+      {endBack ? <EndBack lang={lang} back={back} /> : <footer className="site-foot" />}
     </>
   );
 }

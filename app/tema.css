@@ -59,3 +59,21 @@
   --pad-card: 32px;            /* espaço interno dos cards */
   --raio: 16px;                /* arredondamento dos cantos */
 }
+
+/* ---------- CELULAR (telas até 760px) ---------- */
+@media (max-width: 760px) {
+  :root {
+    --gutter: 24px;                              /* margem lateral no celular */
+    --t-corpo: 16px;
+    --t-andar: 34px;
+    --t-comodo: 26px;
+    --t-secao: 22px;
+    --t-destaque: 22px;
+    --t-reforma: 32px;
+    --t-faixa: 26px;
+    --t-card: 21px;
+    --t-janela: 19px;
+    --espaco-secoes: 80px;
+    --pad-card: 22px;
+  }
+}

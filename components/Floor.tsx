@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getFloor, neighbours, type FloorId } from '@/lib/floors';
+import { ui, type Lang } from '@/lib/i18n';
 
 export type RoomCard = {
   href: string;
@@ -18,29 +19,32 @@ export type WindowItem = {
 };
 
 export function FloorPage({
+  lang,
   id,
   intro,
   rooms = [],
   windows = [],
 }: {
+  lang: Lang;
   id: FloorId;
   intro: string;
   rooms?: RoomCard[];
   windows?: WindowItem[];
 }) {
-  const f = getFloor(id);
-  const { up, down } = neighbours(id);
+  const t = ui[lang];
+  const f = getFloor(lang, id);
+  const { up, down } = neighbours(lang, id);
   return (
     <main className="container wide floor">
       <div className="head">
-        <span className="kicker">Andar {f.button} · {f.years}</span>
+        <span className="kicker">{t.floor} {f.button} · {f.years}</span>
         <h1>{f.name}</h1>
         <p>{intro}</p>
       </div>
 
       {rooms.length > 0 && (
-        <section aria-label="Cômodos">
-          <span className="label">Cômodos</span>
+        <section aria-label={t.rooms}>
+          <span className="label">{t.rooms}</span>
           <div className="rooms">
             {rooms.map((r) => (
               <Link key={r.href} href={r.href} className="room">
@@ -51,7 +55,7 @@ export function FloorPage({
                 <h2>{r.title}</h2>
                 <p>{r.text}</p>
                 <span className="tags">{r.tags.map((t) => <span key={t}>{t}</span>)}</span>
-                <span className="go">Entrar no cômodo</span>
+                <span className="go">{t.enterRoom}</span>
               </Link>
             ))}
           </div>
@@ -59,8 +63,8 @@ export function FloorPage({
       )}
 
       {windows.length > 0 && (
-        <section aria-label="Janelas">
-          <span className="label">Janelas</span>
+        <section aria-label={t.windows}>
+          <span className="label">{t.windows}</span>
           <div className="windows">
             {windows.map((w) => (
               <article key={w.title} className="window">
@@ -68,7 +72,7 @@ export function FloorPage({
                 <h3>{w.title}</h3>
                 <div className="body">{w.body}</div>
                 {w.learned && (
-                  <p className="learned"><strong>O que eu aprendi</strong>{w.learned}</p>
+                  <p className="learned"><strong>{t.learned}</strong>{w.learned}</p>
                 )}
               </article>
             ))}
@@ -76,9 +80,9 @@ export function FloorPage({
         </section>
       )}
 
-      <nav className="floor-nav" aria-label="Navegação entre andares">
-        {up ? <Link href={up.href}>↑ Subir para o {up.button} · {up.name}</Link> : <span />}
-        {down && <Link href={down.href}>Descer para {down.button === 'T' ? 'o Térreo' : `o ${down.button} · ${down.name}`} ↓</Link>}
+      <nav className="floor-nav" aria-label={t.floorsNav}>
+        {up ? <Link href={up.href}>↑ {t.up} {up.button} · {up.name}</Link> : <span />}
+        {down && <Link href={down.href}>{down.id === 'terreo' ? t.downGround : `${t.down} ${down.button} · ${down.name}`} ↓</Link>}
       </nav>
     </main>
   );

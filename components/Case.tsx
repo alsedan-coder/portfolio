@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react';
+import { ui, type Lang } from '@/lib/i18n';
 
 /* ---------- Zona do problema ---------- */
 
@@ -10,9 +11,9 @@ export function ProblemZone({ children }: { children: ReactNode }) {
   );
 }
 
-export function Hero({ kicker, title, lead, children }: { kicker: string; title: string; lead: ReactNode; children?: ReactNode }) {
+export function Hero({ lang, kicker, title, lead, children }: { lang: Lang; kicker: string; title: string; lead: ReactNode; children?: ReactNode }) {
   return (
-    <section className="hero" aria-label="O resultado">
+    <section className="hero" aria-label={ui[lang].result}>
       <span className="kicker">{kicker}</span>
       <h1>{title}</h1>
       <p className="lead">{lead}</p>
@@ -23,11 +24,11 @@ export function Hero({ kicker, title, lead, children }: { kicker: string; title:
 
 export type Note = { text: ReactNode; label?: string; kind?: 'paper' | 'yellow' | 'typed' | 'red'; style: CSSProperties };
 
-export function BeforeAfter({ notes, after, afterLabel = 'Depois' }: { notes: Note[]; after: ReactNode; afterLabel?: string }) {
+export function BeforeAfter({ lang, notes, after }: { lang: Lang; notes: Note[]; after: ReactNode }) {
   return (
     <div className="ba">
-      <figure className="before" aria-label="O cômodo antes">
-        <figcaption>Antes</figcaption>
+      <figure className="before" aria-label={ui[lang].before}>
+        <figcaption>{ui[lang].before}</figcaption>
         <div className="notes">
           {notes.map((n, i) => (
             <p key={i} className={`note ${n.kind ?? 'paper'}`} style={n.style}>
@@ -37,8 +38,8 @@ export function BeforeAfter({ notes, after, afterLabel = 'Depois' }: { notes: No
           ))}
         </div>
       </figure>
-      <figure className="after" aria-label="O cômodo reformado">
-        <figcaption>{afterLabel}</figcaption>
+      <figure className="after" aria-label={ui[lang].after}>
+        <figcaption>{ui[lang].after}</figcaption>
         {after}
       </figure>
     </div>
@@ -111,12 +112,12 @@ export function ProblemSection({ n, label, title, alt, children, aside }: { n: s
 
 /* ---------- Zona da solução ---------- */
 
-export function SolutionZone({ lead, children }: { lead: string; children: ReactNode }) {
+export function SolutionZone({ lang, lead, children }: { lang: Lang; lead: string; children: ReactNode }) {
   return (
     <>
-      <section className="reform" aria-label="O cômodo reformado">
+      <section className="reform" aria-label={ui[lang].reformed}>
         <div className="container">
-          <h2>O cômodo reformado</h2>
+          <h2>{ui[lang].reformed}</h2>
           <p>{lead}</p>
         </div>
       </section>
@@ -256,10 +257,10 @@ export function AfterZone({ children }: { children: ReactNode }) {
   );
 }
 
-export function Learned({ items, note }: { items: ReactNode[]; note?: ReactNode }) {
+export function Learned({ lang, items, note }: { lang: Lang; items: ReactNode[]; note?: ReactNode }) {
   return (
-    <section className="ssec" aria-label="O que eu aprendi" style={{ gap: 32 }}>
-      <span className="kicker">O que eu aprendi</span>
+    <section className="ssec" aria-label={ui[lang].learned} style={{ gap: 32 }}>
+      <span className="kicker">{ui[lang].learned}</span>
       <ul className="learned">{items.map((l, i) => <li key={i}>{l}</li>)}</ul>
       {note && <p className="backstage">{note}</p>}
     </section>

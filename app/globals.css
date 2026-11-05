@@ -61,19 +61,6 @@ p {
   font-size: 12px;
   color: var(--texto-2);
 }
-.skip {
-  position: absolute;
-  left: -9999px;
-  top: 8px;
-  z-index: 100;
-  background: var(--tinta);
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 12px;
-}
-.skip:focus {
-  left: 8px;
-}
 .topbar {
   display: flex;
   gap: 16px;
@@ -351,7 +338,7 @@ p {
     width: 70vw;
   }
   .lobby main {
-    padding: 56px 16px 32px;
+    padding: 56px var(--gutter) 32px;
     gap: 16px;
   }
   .placa {
@@ -1686,3 +1673,8 @@ p {
 /* Idiomas no cabeçalho das páginas internas */
 .topbar { justify-content: space-between; }
 .topbar .langs span { min-height: 36px; min-width: 46px; font-size: 12px; }
+
+/* Celular: textos de abertura um pouco menores */
+@media (max-width: 760px) {
+  .hero .lead, .floor .head p { font-size: 17px; }
+}
