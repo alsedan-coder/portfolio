@@ -1678,3 +1678,14 @@ p {
 @media (max-width: 760px) {
   .hero .lead, .floor .head p { font-size: 17px; }
 }
+
+/* Celular: toda caixa .container mantém a margem lateral, mesmo quando
+   outra classe (.floor, .about…) redefine o padding vertical. */
+@media (max-width: 760px) {
+  .container,
+  .container.floor,
+  .container.about {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+}
